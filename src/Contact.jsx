@@ -28,92 +28,123 @@ function Contact() {
     };
   }, []);
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
- 
-const data = {
-  name: e.target.name.value,
-  email: e.target.email.value,
-  phone: e.target.phone.value,
-  subject: e.target.subject.value,
-  message: e.target.message.value,
-};
- 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    const res = await fetch("https://profilebackend-3krh.onrender.com/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const data = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      phone: e.target.phone.value,
+      subject: e.target.subject.value,
+      message: e.target.message.value,
+    };
 
-    const result = await res.json();
+    console.log("Submitting data:", data);
 
-    setIsSuccess(true);
-    setResponseMessage(result.message || "Submitted successfully!");
-    e.target.reset();
+    try {
+      const res = await fetch("https://profilebackend-3krh.onrender.com/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    // Auto-hide alert after 3 seconds
-    setTimeout(() => {
-      setResponseMessage("");
-    }, 3000);
+      const result = await res.json();
 
-  } catch (err) {
-    setIsSuccess(false);
-    setResponseMessage("Error sending message!");
+      setIsSuccess(true);
+      setResponseMessage(result.message || "Submitted successfully!");
+      e.target.reset();
 
-    // Auto-hide alert after 3 seconds
-    setTimeout(() => {
-      setResponseMessage("");
-    }, 3000);
-  }
-};
+      setTimeout(() => {
+        setResponseMessage("");
+      }, 3000);
 
-  return (<>
+    } catch (err) {
+      setIsSuccess(false);
+      setResponseMessage("Error sending message!");
+
+      setTimeout(() => {
+        setResponseMessage("");
+      }, 3000);
+    }
+  };
+
+  return (
     <div className="wrapper2" id="contact">
-    <div className="container mt-5 mb-5"  ref={contactRef}>
-      <div className={`row mt-5 mb-5 text-center contact-section ${isVisible ? "visible" : ""}`}>
-        <h4>
-          Contact <span>me</span>
-        </h4>
+      <div className="container mt-5 mb-5" ref={contactRef}>
+        <div className={`row mt-5 mb-5 text-center contact-section ${isVisible ? "visible" : ""}`}>
+          <h4>
+            Contact <span>me</span>
+          </h4>
+        </div>
+
+        {/* Alert Box */}
+        {responseMessage && (
+          <div className={`custom-alert ${isSuccess ? "success" : "error"}`}>
+            {responseMessage}
+          </div>
+        )}
+
+        {/* Contact Form */}
+        <form
+          onSubmit={handleSubmit}
+          className={`row mt-5 mb-5 g-3 contact-section ${isVisible ? "visible" : ""}`}
+        >
+          <div className="col-md-6">
+            <input
+              type="text"
+              name="name"
+              className="form-control"
+              placeholder="Your Name"
+              required
+            />
+          </div>
+          <div className="col-md-6">
+            <input
+              type="email"
+              name="email"
+              className="form-control"
+              placeholder="Email"
+              required
+            />
+          </div>
+          <div className="col-md-6">
+            <input
+              type="tel"
+              name="phone"
+              className="form-control"
+              placeholder="Phone"
+              required
+            />
+          </div>
+          <div className="col-md-6">
+            <input
+              type="text"
+              name="subject"
+              className="form-control"
+              placeholder="Subject"
+              required
+            />
+          </div>
+          <div className="col-12">
+            <textarea
+              name="message"
+              rows={5}
+              className="form-control"
+              placeholder="Message"
+              required
+            />
+          </div>
+          <div className="col-12 text-center">
+            <button className="button" type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
-
-      {/* Alert Box */}
-      {responseMessage && (
-        <div className={`custom-alert ${isSuccess ? "success" : "error"}`}>
-       
-          {responseMessage}
-        </div>
-      )}
-
-      {/* Contact Form */}
-      <form onSubmit={handleSubmit} className={`row mt-5 mb-5 g-3 contact-section ${isVisible ? "visible" : ""}`}>
-        <div className="col-md-6">
-          <input type="text" value="name" name="name" className="form-control" placeholder="Your Name" required />
-        </div>
-        <div className="col-md-6">
-          <input type="email" value="email" name="email" className="form-control" placeholder="Email" required />
-        </div>
-        <div className="col-md-6">
-          <input type="tel" value="phone" name="phone" className="form-control" placeholder="Phone" required />
-        </div>
-        <div className="col-md-6">
-          <input type="text"  value="subject" name="subject" className="form-control" placeholder="Subject" required />
-        </div>
-        <div className="col-12">
-        
-          <textarea name="message" value="message" rows={5} className="form-control" placeholder="Message" required />
-        </div>
-        <div className="col-12 text-center">
-          <button className="button" type="submit">Submit</button>
-        </div>
-      </form>
     </div>
-    </div>
-    </>
-  );
+  )
 }
 
 export default Contact;
