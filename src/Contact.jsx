@@ -91,20 +91,20 @@ const data = {
       {/* Contact Form */}
       <form onSubmit={handleSubmit} className={`row mt-5 mb-5 g-3 contact-section ${isVisible ? "visible" : ""}`}>
         <div className="col-md-6">
-          <input type="text" name="name" className="form-control" placeholder="Your Name" required />
+          <input type="text" value="name" name="name" className="form-control" placeholder="Your Name" required />
         </div>
         <div className="col-md-6">
-          <input type="email" name="email" className="form-control" placeholder="Email" required />
+          <input type="email" value="email" name="email" className="form-control" placeholder="Email" required />
         </div>
         <div className="col-md-6">
-          <input type="tel" name="phone" className="form-control" placeholder="Phone" required />
+          <input type="tel" value="phone" name="phone" className="form-control" placeholder="Phone" required />
         </div>
         <div className="col-md-6">
-          <input type="text" name="subject" className="form-control" placeholder="Subject" required />
+          <input type="text"  value="subject" name="subject" className="form-control" placeholder="Subject" required />
         </div>
         <div className="col-12">
         
-          <textarea name="message" rows={5} className="form-control" placeholder="Message" required />
+          <textarea name="message" value="message" rows={5} className="form-control" placeholder="Message" required />
         </div>
         <div className="col-12 text-center">
           <button className="button" type="submit">Submit</button>
