@@ -42,7 +42,7 @@ function Contact() {
     console.log("Submitting data:", data);
 
     try {
-      const res = await fetch("https://profilebackend-3krh.onrender.com/contact", {
+      const res = await fetch("https://profilebackend-3krh.onrender.com/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
